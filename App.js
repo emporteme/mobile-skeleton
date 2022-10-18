@@ -3,7 +3,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import OnboardingScreen from './src/screens/OnboardingScreen';
-import HomeScreen from './src/screens/HomeScreen';
+import MainContainer from './src/screens/MainContainer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const Stack = createStackNavigator();
 
@@ -13,10 +13,10 @@ const App = () => {
   React.useEffect(async () => {
     const appData = await AsyncStorage.getItem('isAppFirstLaunched');
     if (appData == null) {
-      setIsAppFirstLaunched(true);
-      AsyncStorage.setItem('isAppFirstLaunched', 'false');
-    } else {
       setIsAppFirstLaunched(false);
+      AsyncStorage.setItem('isAppFirstLaunched', 'true');
+    } else {
+      setIsAppFirstLaunched(true);
     }
 
     // AsyncStorage.removeItem('isAppFirstLaunched');
@@ -32,7 +32,7 @@ const App = () => {
               component={OnboardingScreen}
             />
           )}
-          <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen name="MainContainer" component={MainContainer} />
         </Stack.Navigator>
       </NavigationContainer>
     )
